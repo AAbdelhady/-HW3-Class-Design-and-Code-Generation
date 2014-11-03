@@ -1,16 +1,30 @@
+import java.util.ArrayList;
+
+
+
 public class Ranking_List
 {
-	private Game gamesPlayed;
+	private static ArrayList<ArrayList<String>> gamesPlayed;
 	
-	public int calcScore( )
+	public void addScore(String playerName, int score)
 	{
-		return 0;
-	}
-	
-	public void loseGame( )
-	{
+		if(gamesPlayed==null)
+			gamesPlayed = new ArrayList<ArrayList<String>>(); 
 		
+		ArrayList<String> tmp =new ArrayList<String>();
+		tmp.add(playerName);
+		tmp.add(String.valueOf(score));
+		
+		gamesPlayed.add(tmp);
 	}
-	
+
+	public void displayScores()
+	{
+		System.out.println("		SCORES		\n\n");
+		for(int i=0;i<gamesPlayed.size();i++)
+		{
+			System.out.println(gamesPlayed.get(i).get(0)+"   "+gamesPlayed.get(i).get(1));
+		}
+	}
 	
 }
