@@ -35,20 +35,18 @@ public abstract class Employee
 		
 	}
 	
-	public int increasEmpExp( )
+	public String getEmployeeType( )
 	{
-		return 0;
+		if(this instanceof Chef)
+			return "Chef";
+		else if(this instanceof Barman)
+			return "Barman";
+		else
+			return "Waiter";
 	}
 	
-	public int payWeeklySalary( )
-	{
-		return 0;
-	}
-	
-	public int increaseSalary( )
-	{
-		return 0;
-	}
+
 	
 	
 }
+
