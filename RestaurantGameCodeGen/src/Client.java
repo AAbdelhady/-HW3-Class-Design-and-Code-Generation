@@ -3,7 +3,7 @@ import java.util.Random;
 
 public class Client
 {
-	private String name;
+	public String name;
 	
 	private String surname;
 	
@@ -114,30 +114,12 @@ public class Client
 		else	
 			return false;
 	}
-	
-	public void serveClient( )
-	{
-		
-	}
-	
-	public void deliverMenuItems( )
-	{
-		
-	}
-	
-	
-
-	public void occupyTable( Table table )
-	{
-		
-	}
-	
-	
 
 	public void placeOrder( )
 	{
 		Order currentOrder = new Order();
 		currentOrder.itemsOrderd = new Menu_Item[2]; //Assuming order consists only of 1 dish and 1 beverage
+		
 		Random rand = new Random();
 		currentOrder.itemsOrderd[0] = Restaurant.dishes[rand.nextInt(5)];
 		currentOrder.itemsOrderd[1] = Restaurant.beverages[rand.nextInt(5)];
