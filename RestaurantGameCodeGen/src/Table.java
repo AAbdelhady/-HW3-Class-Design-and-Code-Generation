@@ -49,9 +49,10 @@ public class Table
 			}
 		}
 		
-		return 0;
+		return repFromTable;
 	}
 	
 	
 	
 }
+
