@@ -1,0 +1,16 @@
+public class Ranking_List
+{
+	private Game gamesPlayed;
+	
+	public int calcScore( )
+	{
+		return 0;
+	}
+	
+	public void loseGame( )
+	{
+		
+	}
+	
+	
+}
