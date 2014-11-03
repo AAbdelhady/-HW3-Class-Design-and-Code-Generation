@@ -1,23 +1,17 @@
 public class Game
 {
-	private int gameId;
+	public int gameId;
 	
-	private int score;
+	public int score;
 	
-	private Statistics stats;
-	
-	private Player player;
+	public Player player;
 	
 	private static int nextGameID = 0;
 	
 	private int dayNumber;
 	
-	private Restaurant restaurant;
+	public Restaurant restaurant;
 	
-	Game()
-	{
-		stats = new Statistics();
-	}
 	
 	public void createNewGame( String playerName )
 	{
@@ -40,6 +34,8 @@ public class Game
 		
 		restaurant.initEmployees();
 		restaurant.initMenuItemsWithCorresPrices();
+		restaurant.initTables();
+		restaurant.initPopulation();
 		
 		for(int i=0;i<30;i++)
 		{
@@ -57,7 +53,11 @@ public class Game
 		if(restaurant.budget<=0)
 			return false;
 		else
+		{
+			score = restaurant.budget; 
 			return true;
+		}
+			
 		
 	}
 	
@@ -65,9 +65,9 @@ public class Game
 	{
 		dayNumber++;
 		
-		System.out.println("New day, would you like to train any employee before the day starts?(Y/N)");
+		System.out.println("Day:"+dayNumber+" starting, would you like to train any employee before the day starts?(Y/N)");
 		
-		if((System.console().readLine().equals("Y"))||(System.console().readLine().equals("y")))
+		if(ConsoleInputReader.isYes())
 		{
 			restaurant.upgradeEmployee();
 		}
@@ -80,17 +80,32 @@ public class Game
 		
 		restaurant.receivePaymentForOrders();
 		
+		restaurant.calcDayOrderCosts( );
+		
+		restaurant.calcReputation();
+		
 		if((dayNumber%7)==0)
 		{
-			restaurant.paySalaries();
+			System.out.println("\n++Budget Before Deductions = " + restaurant.budget);
 			
-			restaurant.paySuppliers();
+			int salaries = restaurant.paySalaries();
+			System.out.println("\n++Salaries for week"+dayNumber/7+ " = " + salaries +  " has been deducted from budget");
+			
+			int supplies = restaurant.paySuppliers();
+			System.out.println("\n++Supplies costs for week"+dayNumber/7+ " = " + supplies +  " has been deducted from budget");
 			
 			if(restaurant.budget<=0)
 				return false;
 		}
 		
+		String EOD_msg = "** Day" + dayNumber + " is over, the budget is: " + restaurant.budget + ", reputation points:" + restaurant.reputationPoints + ", restaurant reputation is:" + restaurant.reputation + " **";
+		String sep = "";
 		
+		for(int i = 0;i<EOD_msg.length();i++)
+			sep+="*";
+		System.out.println("\n"+sep);
+		System.out.println(EOD_msg);
+		System.out.println(sep+"\n");
 		
 		return true;
 	}
