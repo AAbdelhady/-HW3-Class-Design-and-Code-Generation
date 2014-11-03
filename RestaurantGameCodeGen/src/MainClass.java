@@ -1,8 +1,3 @@
-import java.io.IOException;
-import java.io.InputStream;
-
-
-
 public class MainClass
 {	
 	private static Game currentGame;
@@ -11,29 +6,58 @@ public class MainClass
 	private static Ranking_List rankingList;
 	
 	
+	
 	public static void main( String args[] )
 	{
-		currentGame = new Game();
 		rankingList = new Ranking_List();
 		
-		System.out.println("Starting New Game");
-		System.out.println("Enter Player Name:");
+		char c=0;
 		
-		currentGame.createNewGame(System.console().readLine());
+		do
+		{
+			currentGame = new Game();
 		
-		System.out.println("Enter Restaurant Name:");
-		String restaurantName = System.console().readLine();
-		
-		System.out.println("Enter Restaurant Address:");
-		String restaurantAddress = System.console().readLine();
-		
-		System.out.println("Enter Restaurant City:");
-		String restaurantCity = System.console().readLine();
-		
-		boolean gameResult = currentGame.startGame(restaurantName, restaurantAddress, restaurantCity);
+			System.out.println("\n\nStarting New Game");
+			System.out.println("\nEnter Player Name:");
 		
 		
+			currentGame.createNewGame(ConsoleInputReader.readLineFromConsole());
+		
+			System.out.println("Enter Restaurant Name:");
+			String restaurantName = ConsoleInputReader.readLineFromConsole();
+		
+			System.out.println("Enter Restaurant Address:");
+			String restaurantAddress = ConsoleInputReader.readLineFromConsole();
+		
+			System.out.println("Enter Restaurant City:");
+			String restaurantCity = ConsoleInputReader.readLineFromConsole();
+		
+			boolean gameResult = currentGame.startGame(restaurantName, restaurantAddress, restaurantCity);
+		
+			if(gameResult)
+			{
+				System.out.println("\n	  You Win! 	  ");
+				System.out.println("	--------	\n");
+			
+				currentGame.restaurant.showStatistics();
+			
+				rankingList.addScore(currentGame.player.name, currentGame.score);
+			}
+			else
+			{
+				System.out.println("\n	  Game Over!  ");
+				System.out.println("	----------	\n");
+			}
+			
+			System.out.println("\n\n\nEnter Y to play new game, R for rankings or any other character to exit");
+			c = ConsoleInputReader.readLineFromConsole().charAt(0);
+			
+		}while((c=='Y')||(c=='y'));
+		
+		if((c=='R')||(c=='r'))
+		{
+			rankingList.displayScores();
+		}
 	}
-	
 	
 }
