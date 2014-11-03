@@ -2,12 +2,7 @@ import java.util.Random;
 
 public class People
 {
-	private Client population[];
-	
-	People()
-	{
-		population = new Client[18];
-	}
+	public Client population[];
 	
 	public Client pickRndClient( )
 	{
